@@ -73,17 +73,47 @@ mysql://<USERNAME>:<PLAIN_TEXT_PASSWORD>@<ACCESS_HOST_URL>/<DATABASE_NAME>?sslac
 
 Push the database schema to your PlanetScale database using Prisma.
 
-`npx prisma db push`
+```bash
+npx prisma db push
+```
+
+```bash
+yarn prisma db push
+```
+
+```bash
+pnpm prisma
+```
 
 Run the seed script to populate your database with `Product` and `Category` data.
 
-`npm run seed`
+```bash
+npm run seed
+```
+
+```bash
+yarn seed
+```
+
+```bash
+pnpm seed
+```
 
 ## Run the App
 
 Run the app with following command:
 
-`npm run dev`
+```bash
+npm run dev
+```
+
+```bash
+yarn dev
+```
+
+```bash
+pnpm dev
+```
 
 Open your browser at [localhost:3000](localhost:3000) to see the running application.
 
@@ -99,6 +129,6 @@ Now that your branch has been promoted to production, you can either use the exi
 
 Deploy the example using [Vercel](https://vercel.com?utm_source=github&utm_medium=readme&utm_campaign=next-example):
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/git/external?repository-url=https://github.com/vercel/next.js/tree/canary/examples/with-mysql&project-name=with-mysql&repository-name=with-mysql&env=DATABASE_URL)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/vercel/next.js/tree/canary/examples/with-mysql&project-name=with-mysql&repository-name=with-mysql&env=DATABASE_URL)
 
 > Make sure to update the `DATABASE_URL` variable during this setup process.

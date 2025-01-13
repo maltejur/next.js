@@ -4,7 +4,11 @@
   "license": "MIT",
   "dependencies": {
     "next": "latest",
-    "react": "0.0.0-experimental-cb5084d1c-20220924",
-    "react-dom": "0.0.0-experimental-cb5084d1c-20220924"
-  }
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  },
+  "engines": {
+    "node": ">=18.18.0"
+  },
+  "packageManager": "pnpm@9.6.0"
 }

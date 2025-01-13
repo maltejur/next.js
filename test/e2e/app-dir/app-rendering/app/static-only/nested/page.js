@@ -1,8 +1,6 @@
-import { experimental_use as use } from 'react'
+import { use } from 'react'
 
-export const config = {
-  revalidate: false,
-}
+export const revalidate = false
 
 async function getData() {
   return {
@@ -10,7 +8,7 @@ async function getData() {
   }
 }
 
-export default function nestedPage(props) {
+export default function NestedPage(props) {
   const data = use(getData())
   return (
     <>

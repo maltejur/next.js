@@ -1,7 +1,5 @@
-export const config = {
-  dynamicParams: false,
-}
+export const dynamicParams = false
 
-export default function Page({ params }) {
+export default async function Page() {
   return <p>Static page</p>
 }

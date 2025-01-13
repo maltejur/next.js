@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { experimental_use as use } from 'react'
+import { use } from 'react'
 
 async function getData() {
   await new Promise((resolve) => setTimeout(resolve, 1000))
@@ -12,7 +12,8 @@ export function generateStaticParams() {
   return [{ id: 'static' }]
 }
 
-export default function IdPage({ params }) {
+export default function IdPage(props) {
+  const params = use(props.params)
   const data = use(getData())
   console.log(data)
 

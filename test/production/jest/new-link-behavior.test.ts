@@ -1,14 +1,8 @@
 import { createNext } from 'e2e-utils'
-import { NextInstance } from 'test/lib/next-modes/base'
+import { NextInstance } from 'e2e-utils'
 
-describe('next/jest', () => {
+describe('next/jest newLinkBehavior', () => {
   let next: NextInstance
-
-  if (process.env.NEXT_TEST_REACT_VERSION === '^17') {
-    // react testing library is specific to react version
-    it('should bail on react v17', () => {})
-    return
-  }
 
   beforeAll(async () => {
     next = await createNext({
@@ -17,7 +11,7 @@ describe('next/jest', () => {
           import Link from 'next/link'
 
           export default function Page() {
-            return <Link href='https://example.com'><a>Hello World!</a></Link>
+            return <Link href='https://example.com'><div>Hello World!</div></Link>
           }
         `,
         'test/index.test.jsx': `
@@ -25,12 +19,10 @@ describe('next/jest', () => {
           import Page from '../pages/index'
 
           it('Link', () => {
-            act(() => {
-              render(<Page />)
+            render(<Page />)
 
-              const link = screen.getByRole('link', { name: 'Hello World!' })
-              expect(link.getAttribute('href')).toBe('https://example.com')
-            })
+            const link = screen.getByRole('link', { name: 'Hello World!' })
+            expect(link.getAttribute('href')).toBe('https://example.com')
           })
         `,
         'jest.config.js': `
@@ -42,45 +34,24 @@ describe('next/jest', () => {
         `,
       },
       dependencies: {
-        jest: '27.4.7',
-        '@testing-library/react': '12.1.2',
+        jest: '29.7.0',
+        'jest-environment-jsdom': '29.7.0',
+        '@testing-library/react': '15.0.2',
       },
       packageJson: {
         scripts: {
-          build: 'next build && yarn jest --forceExit test/index.test.jsx',
+          build: 'next build && jest --forceExit test/index.test.jsx',
         },
       },
+      installCommand: 'pnpm i',
       skipStart: true,
-      buildCommand: `yarn build`,
+      buildCommand: `pnpm build`,
     })
   })
 
   afterAll(() => next.destroy())
 
-  it(`should use normal Link behavior when newNextLinkBehavior is unset`, async () => {
-    await next.start()
-  })
-
-  it(`should use new link behavior when newNextLinkBehavior is true`, async () => {
-    await next.stop()
-
-    await next.patchFile(
-      'pages/index.jsx',
-      `
-      import Link from 'next/link'
-
-      export default function Page() {
-        return <Link href='https://example.com'><div>Hello World!</div></Link>
-      }
-    `
-    )
-    await next.patchFile(
-      'next.config.js',
-      `
-      module.exports = { experimental: { newNextLinkBehavior: true } }
-    `
-    )
-
+  it(`should use new link behavior`, async () => {
     await next.start()
   })
 })

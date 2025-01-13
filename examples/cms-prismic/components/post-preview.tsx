@@ -1,23 +1,23 @@
-import Link from 'next/link'
-import { DateField, ImageField, TitleField } from '@prismicio/types'
-import { PrismicText } from '@prismicio/react'
-import { asText, isFilled } from '@prismicio/helpers'
+import Link from "next/link";
+import { DateField, ImageField, TitleField } from "@prismicio/types";
+import { PrismicText } from "@prismicio/react";
+import { asText, isFilled } from "@prismicio/helpers";
 
-import { AuthorContentRelationshipField } from '../lib/types'
+import { AuthorContentRelationshipField } from "../lib/types";
 
-import Avatar from '../components/avatar'
-import Date from '../components/date'
+import Avatar from "../components/avatar";
+import Date from "../components/date";
 
-import CoverImage from './cover-image'
+import CoverImage from "./cover-image";
 
 type PostPreviewProps = {
-  title: TitleField
-  coverImage: ImageField
-  date: DateField
-  excerpt: string
-  author: AuthorContentRelationshipField
-  href: string
-}
+  title: TitleField;
+  coverImage: ImageField;
+  date: DateField;
+  excerpt: string;
+  author: AuthorContentRelationshipField;
+  href: string;
+};
 
 export default function PostPreview({
   title,
@@ -33,10 +33,8 @@ export default function PostPreview({
         <CoverImage title={asText(title)} href={href} image={coverImage} />
       </div>
       <h3 className="text-3xl mb-3 leading-snug">
-        <Link href={href}>
-          <a className="hover:underline">
-            <PrismicText field={title} />
-          </a>
+        <Link href={href} className="hover:underline">
+          <PrismicText field={title} />
         </Link>
       </h3>
       <div className="text-lg mb-4">
@@ -47,5 +45,5 @@ export default function PostPreview({
         <Avatar name={asText(author.data.name)} picture={author.data.picture} />
       )}
     </div>
-  )
+  );
 }

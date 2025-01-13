@@ -1,6 +1,9 @@
 import ClientComp from './client-comp-client'
 
 export default function DashboardPage(props) {
+  if (typeof WebSocket === 'undefined') {
+    throw new Error('missing WebSocket constructor!!')
+  }
   return (
     <>
       <p id="from-dashboard" className="p">
@@ -13,6 +16,4 @@ export default function DashboardPage(props) {
   )
 }
 
-export const config = {
-  runtime: 'experimental-edge',
-}
+export const runtime = 'edge'

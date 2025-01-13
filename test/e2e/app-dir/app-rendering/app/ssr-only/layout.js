@@ -1,8 +1,6 @@
-import { experimental_use as use } from 'react'
+import { use } from 'react'
 
-export const config = {
-  revalidate: 0,
-}
+export const revalidate = 0
 
 async function getData() {
   return {
@@ -10,7 +8,7 @@ async function getData() {
   }
 }
 
-export default function gsspLayout(props) {
+export default function GsspLayout(props) {
   const data = use(getData())
 
   return (

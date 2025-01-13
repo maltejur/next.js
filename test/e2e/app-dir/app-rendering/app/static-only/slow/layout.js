@@ -1,4 +1,4 @@
-import { experimental_use as use } from 'react'
+import { use } from 'react'
 
 async function getData() {
   await new Promise((resolve) => setTimeout(resolve, 5000))
@@ -7,7 +7,7 @@ async function getData() {
   }
 }
 
-export default function gspLayout(props) {
+export default function GspLayout(props) {
   const data = use(getData())
 
   return (

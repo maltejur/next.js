@@ -1,22 +1,22 @@
-import Link from 'next/link'
-import { DateField, ImageField, TitleField } from '@prismicio/types'
-import { PrismicText } from '@prismicio/react'
-import { asText, isFilled } from '@prismicio/helpers'
+import Link from "next/link";
+import { DateField, ImageField, TitleField } from "@prismicio/types";
+import { PrismicText } from "@prismicio/react";
+import { asText, isFilled } from "@prismicio/helpers";
 
-import { AuthorContentRelationshipField } from '../lib/types'
+import { AuthorContentRelationshipField } from "../lib/types";
 
-import Avatar from '../components/avatar'
-import CoverImage from '../components/cover-image'
-import Date from '../components/date'
+import Avatar from "../components/avatar";
+import CoverImage from "../components/cover-image";
+import Date from "../components/date";
 
 type HeroPostProps = {
-  title: TitleField
-  coverImage: ImageField
-  date: DateField
-  excerpt: string
-  author: AuthorContentRelationshipField
-  href: string
-}
+  title: TitleField;
+  coverImage: ImageField;
+  date: DateField;
+  excerpt: string;
+  author: AuthorContentRelationshipField;
+  href: string;
+};
 
 export default function HeroPost({
   title,
@@ -34,10 +34,8 @@ export default function HeroPost({
       <div className="md:grid md:grid-cols-2 md:gap-x-16 lg:gap-x-8 mb-20 md:mb-28">
         <div>
           <h3 className="mb-4 text-4xl lg:text-6xl leading-tight">
-            <Link href={href}>
-              <a className="hover:underline">
-                <PrismicText field={title} />
-              </a>
+            <Link href={href} className="hover:underline">
+              <PrismicText field={title} />
             </Link>
           </h3>
           <div className="mb-4 md:mb-0 text-lg">
@@ -55,5 +53,5 @@ export default function HeroPost({
         </div>
       </div>
     </section>
-  )
+  );
 }

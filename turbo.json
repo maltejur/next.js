@@ -1,18 +1,6 @@
 {
   "$schema": "https://turborepo.org/schema.json",
-  "pipeline": {
-    "build-native": {
-      "dependsOn": ["^build-native"],
-      "outputs": ["native/*.node"]
-    },
-    "build-native-no-plugin": {
-      "dependsOn": ["^build-native-no-plugin"],
-      "outputs": ["native/*.node"]
-    },
-    "build-wasm": {
-      "dependsOn": ["^build-wasm"],
-      "outputs": ["crates/wasm/pkg/*"]
-    },
+  "tasks": {
     "build": {
       "dependsOn": ["^build"],
       "outputs": ["dist/**"]
@@ -21,6 +9,17 @@
       "dependsOn": ["^dev"],
       "outputs": ["dist/**"]
     },
-    "typescript": {}
-  }
+    "storybook": {},
+    "build-storybook": {
+      "dependsOn": ["^build-storybook"],
+      "outputs": ["storybook-static/**"]
+    },
+    "typescript": {},
+    "//#typescript": {},
+    "//#get-test-timings": {
+      "inputs": ["run-tests.js"],
+      "outputs": ["test-timings.json"]
+    }
+  },
+  "ui": "tui"
 }

@@ -3,12 +3,13 @@ import path from 'path'
 import fs from 'fs-extra'
 import webdriver from 'next-webdriver'
 import { createNext, FileRef } from 'e2e-utils'
-import { NextInstance } from 'test/lib/next-modes/base'
+import { NextInstance } from 'e2e-utils'
 import {
   findPort,
   initNextServerScript,
   killApp,
   renderViaHTTP,
+  shouldRunTurboDevTest,
 } from 'next-test-utils'
 
 describe('pnpm support', () => {
@@ -43,6 +44,22 @@ describe('pnpm support', () => {
 
     const html = await renderViaHTTP(next.url, '/')
     expect(html).toContain('Hello World')
+
+    const manifest = JSON.parse(
+      await next.readFile('.next/next-server.js.nft.json')
+    )
+    for (const ignore of ['next/dist/pages', '.wasm', 'compiled/@ampproject']) {
+      let matchingFile
+      try {
+        matchingFile = manifest.files.some((file) => file.includes(ignore))
+        expect(!!matchingFile).toBe(false)
+      } catch (err) {
+        require('console').error(
+          `Found unexpected file in manifest ${matchingFile} matched ${ignore}`
+        )
+        throw err
+      }
+    }
   })
 
   it('should execute client-side JS on each page in output: "standalone"', async () => {
@@ -56,13 +73,12 @@ describe('pnpm support', () => {
       },
       packageJson: {
         scripts: {
-          dev: 'next dev',
+          dev: `next ${shouldRunTurboDevTest() ? 'dev --turbo' : 'dev'}`,
           build: 'next build',
           start: 'next start',
         },
       },
       buildCommand: 'pnpm run build',
-      installCommand: '',
     })
     await next.stop()
     expect(next.cliOutput).toMatch(/Compiled successfully/)
@@ -87,7 +103,7 @@ describe('pnpm support', () => {
       )
       server = await initNextServerScript(
         path.join(standaloneDir, 'server.js'),
-        /Listening/,
+        /- Local:/,
         {
           ...process.env,
           PORT: appPort,

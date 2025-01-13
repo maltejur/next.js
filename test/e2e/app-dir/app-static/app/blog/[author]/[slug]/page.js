@@ -1,8 +1,13 @@
-export const config = {
-  dynamicParams: true,
-}
+import { notFound } from 'next/navigation'
 
-export default function Page({ params }) {
+export const dynamicParams = true
+
+export default async function Page(props) {
+  const params = await props.params
+  if (params.author === 'shu') {
+    notFound()
+  }
+
   return (
     <>
       <p id="page">/blog/[author]/[slug]</p>

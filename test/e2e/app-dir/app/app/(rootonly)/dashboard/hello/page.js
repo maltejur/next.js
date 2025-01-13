@@ -6,6 +6,5 @@ export default function HelloPage(props) {
   )
 }
 
-export const config = {
-  runtime: 'experimental-edge',
-}
+export const runtime = 'edge'
+export const preferredRegion = ['iad1', 'sfo1']
